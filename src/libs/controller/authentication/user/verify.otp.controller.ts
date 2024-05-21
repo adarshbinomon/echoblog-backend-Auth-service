@@ -28,6 +28,11 @@ export default (dependencies: Dependencies) => {
           httpOnly: true,
           secure: true,
         });
+        res.cookie("refreshToken", refreshToken, {
+          expires: expirationDate,
+          httpOnly: true,
+          secure: true,
+        });
         const userDataForResponse = JSON.parse(
           JSON.stringify(response.user.response)
         );
@@ -44,10 +49,14 @@ export default (dependencies: Dependencies) => {
           user: userDataForResponse,
         });
       } else {
-        res.status(HttpStatus.BAD_REQUEST).json({ status: false, message: response.message });
+        res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ status: false, message: response.message });
       }
     } catch (error) {
-      res.status(HttpStatus.BAD_REQUEST).json({ status: false, message: "error in verify otp" });
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ status: false, message: "error in verify otp" });
     }
   };
 

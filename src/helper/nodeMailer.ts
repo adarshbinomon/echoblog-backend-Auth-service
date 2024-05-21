@@ -11,31 +11,31 @@ export const sendMail = async (email: string, name?: string) => {
     const otp = generateOtp();
     console.log('otp',otp);
 
-    // const transporter = nodemailer.createTransport({
-    //   host: "smtp.gmail.com",
-    //   port: 587,
-    //   secure: false,
-    //   requireTLS: true,
-    //   auth: {
-    //     user: process.env.EMAIL,
-    //     pass: process.env.PASSWORD,
-    //   },
-    // });
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
 
-    // const mailOptions = {
-    //   from: "adarshbinomon.3@gmail.com",
-    //   to: email,
-    //   subject: "OTP || Echo Blog",
-    //   text: `Thank you for choosing Spark Fire. Use this otp to finish your signup: ${otp}`,
-    // };
+    const mailOptions = {
+      from: "adarshbinomon.3@gmail.com",
+      to: email,
+      subject: "OTP || Echo Blog",
+      text: `Thank you for choosing Spark Fire. Use this otp to finish your signup: ${otp}`,
+    };
 
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log(`Email has been sent to ${email}`, info.response);
-    //   }
-    // });
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email has been sent to ${email}`, info.response);
+      }
+    });
 
     return otp;
   } catch (error) {
